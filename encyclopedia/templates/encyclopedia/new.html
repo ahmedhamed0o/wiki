@@ -1,0 +1,29 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    <h1>new page</h1>
+    <form id="newPageForm" action="{% url 'new_page' %}" method="POST">
+        {% csrf_token %}
+        <label>Title:</label>
+        <input type="text" id="titleInput" name="title" placeholder="enter a title">
+        <br/>
+        <label >markdown content:</label>
+        <br/>
+        <textarea id="contentTextarea" name="content"></textarea>
+        <br/>
+        <input type="submit" value="new page" class="btn btn-primary">
+    </form>
+
+    <script>
+        document.getElementById('newPageForm').addEventListener('submit', function (event) {
+            var title = document.getElementById('titleInput').value;
+            var contentTextarea = document.getElementById('contentTextarea');
+            var currentContent = contentTextarea.value;
+            contentTextarea.value = "# " + title + "\n\n" + currentContent;
+        });
+    </script>
+{% endblock %}
